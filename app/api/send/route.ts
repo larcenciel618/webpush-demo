@@ -31,16 +31,15 @@ export async function POST(request: Request) {
       });
     }
 
+    // notification フィールドを使うと FCM が自動表示し、SW の onBackgroundMessage と
+     // 二重に通知が出るため、data のみで送信して表示は SW 側に一本化する
     const response = await adminMessaging().sendEachForMulticast({
       tokens,
-      notification: { title, body },
-      data: { url: url ?? "/" },
-      webpush: {
-        fcmOptions: { link: url ?? "/" },
-        notification: {
-          icon: "/icon-192.png",
-          badge: "/icon-192.png",
-        },
+      data: {
+        title,
+        body,
+        url: url ?? "/",
+        icon: "/icon-192.png",
       },
     });
 
