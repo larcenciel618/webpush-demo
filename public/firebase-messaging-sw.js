@@ -21,14 +21,14 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const messaging = firebase.messaging();
 
-// バックグラウンド時は、payload に notification フィールドがあれば
-// FCM がこのハンドラを呼ばずに自動で通知を表示する。
-// データメッセージ (data のみ) を独自処理したい場合にこのハンドラが有効。
+// このアプリは data メッセージのみを送信する設計のため、表示は常にこのハンドラで行う。
+// notification フィールドを使うと FCM が自動表示し、ここでも showNotification を
+// 呼ぶことで通知が二重に出てしまう (Firebase JS SDK V1 の挙動)。
 messaging.onBackgroundMessage((payload) => {
-  const title = payload.notification?.title ?? payload.data?.title ?? "通知";
+  const title = payload.data?.title ?? "通知";
   const options = {
-    body: payload.notification?.body ?? payload.data?.body ?? "",
-    icon: "/icon-192.png",
+    body: payload.data?.body ?? "",
+    icon: payload.data?.icon ?? "/icon-192.png",
     badge: "/icon-192.png",
     data: payload.data,
   };

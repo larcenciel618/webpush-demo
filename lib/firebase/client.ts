@@ -67,10 +67,11 @@ export async function listenForegroundMessages(
   const messaging = await getMessagingIfSupported();
   if (!messaging) return () => {};
 
+  // /api/send は data メッセージのみを送るため、title/body も data から拾う
   const unsubscribe = onMessage(messaging, (payload) => {
     handler({
-      title: payload.notification?.title,
-      body: payload.notification?.body,
+      title: payload.data?.title,
+      body: payload.data?.body,
       data: payload.data,
     });
   });
