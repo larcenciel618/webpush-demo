@@ -40,8 +40,8 @@ steps:
       - '--region=$_DEPLOY_REGION'
       - '--quiet'
       - '--min-instances=0'
-      - '--set-env-vars=FIREBASE_PROJECT_ID=$PROJECT_ID'
-      - '--set-secrets=FIREBASE_CLIENT_EMAIL=FIREBASE_CLIENT_EMAIL:latest,FIREBASE_PRIVATE_KEY=FIREBASE_PRIVATE_KEY:latest'
+      # ^@^ で区切り文字を変更 (private_key 等の値にカンマが含まれても安全に扱うため)
+      - '--set-env-vars=^@^FIREBASE_PROJECT_ID=$PROJECT_ID@FIREBASE_CLIENT_EMAIL=$_FIREBASE_CLIENT_EMAIL@FIREBASE_PRIVATE_KEY=$_FIREBASE_PRIVATE_KEY'
     id: Deploy
     entrypoint: gcloud
 timeout: 3600s
