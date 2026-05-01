@@ -1,6 +1,8 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  // Cloud Run など Docker でのデプロイ用に最小ランタイムを生成
+  output: "standalone",
   async headers() {
     return [
       {
