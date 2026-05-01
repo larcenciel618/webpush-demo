@@ -1,0 +1,19 @@
+node_modules
+.next
+.git
+.gitignore
+# .env は Cloud Build の WriteEnv ステップで生成されるためビルドコンテキストに含める
+# ローカル開発用の env だけ除外
+.env.local
+.env.local.*
+.env.development
+.env.development.*
+.vscode
+.idea
+.DS_Store
+README.md
+Dockerfile
+.dockerignore
+cloudbuild.yaml
+*.log
+coverage
